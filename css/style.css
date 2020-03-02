@@ -14,9 +14,26 @@ body {
     overflow: scroll;
     
   }
+  #myLeftPic{
+
+margin-top: 16px;
+border-radius: 990px;
+
+
+    
+  }
+  #myCenterPic{
+    border-radius: 990px ;
+  }
+
+
+  #myRightPic{
+    border-radius: 990px;
+
+  }
  #allBusMall{
    height: 500px;
-   width: 600px;
+   width: 800px;
    position: absolute;
    background-color: #0e2805;
    border-radius: 40px;
@@ -27,14 +44,17 @@ body {
  
 #allBusMall img{
   
-height: 100px;
-padding: 10px;
+height: 200PX;
+width: 200PX;
+padding: 30px;
 display: inline-block;
+float: left;
+
 }
   
 
 .sign-in {
-    width: 600px;
+    width: 800px;
     height: 100px;
   
     box-shadow: 0 0 3px 0 rgb(0, 0, 0, 3);
