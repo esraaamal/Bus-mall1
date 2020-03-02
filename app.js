@@ -70,18 +70,38 @@ function Bus(name){
 }
 
 function pickRandomImages(){
+  var mynewImage=[];
 var indexRandom=randomNumber(0 , myImages.length-1 );
   var leftImageRandom =  myImages[indexRandom];
-myImages.splice(indexRandom ,1);
+ mynewImage= myImages.splice(indexRandom ,1);
+leftClicks++;
 newArray.push(leftImageRandom);
-console.log(newArray);
 
-  var rightImageRandom =  myImages[randomNumber(0 , myImages.length-1 )];
+//console.log(` we click ${leftClicks} in ${myImages[indexRandom]}`);
+//console.log(mynewImage.length);
+
+  
+
+  var indexRandom=randomNumber(0 , myImages.length-1 );
+  var rightImageRandom =  myImages[indexRandom];
+ mynewImage= myImages.splice(indexRandom ,1);
+rightClicks++;
+newArray.push(rightImageRandom);
+
+//console.log(` we click ${rightClicks} in ${myImages[indexRandom]}`);
+console.log(mynewImage.length);
+
+
+
+
+
+
 
   var centerImageRandom =  myImages[randomNumber(0 , myImages.length-1 )];
 
   leftBusImg.setAttribute('src' , leftImageRandom.urlImage);
   leftBusImg.setAttribute('alt' , leftImageRandom.name);
+  console.log(` we click ${leftClicks} in ${leftImageRandom.name}`);
 
   rightBusImg.setAttribute('src' , rightImageRandom.urlImage);
   rightBusImg.setAttribute('alt' ,rightImageRandom.name);
@@ -90,7 +110,7 @@ console.log(newArray);
   centerBusImg.setAttribute('alt' ,centerImageRandom.name);
   
   while(leftBusImg ===  rightBusImg ){
-    //pick another random number
+    pickRandomImages();
   }
 }
 
@@ -111,9 +131,9 @@ function clickImage(e){
   if( e.target.id === 'myLeftPic' ){
       pickRandomImages();
     
-    leftClicks++;
+    
     totalClicks++;
-    console.log(leftClicks);
+    
   }else if( e.target.id === 'myRightPic'){
       pickRandomImages();
     
@@ -128,6 +148,7 @@ function clickImage(e){
       //remove event listener
       leftBusImg.remove();
        rightBusImg.remove();
+       
       
   
      // console.log('finished');
