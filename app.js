@@ -141,31 +141,42 @@ function clickImage(e) {
 
     
   }
-  else if (totalClicks === 25) {
+   if (totalClicks === 25) {
     //remove event listener
     leftBusImg.remove();
     rightBusImg.remove();
     centerBusImg.remove();
-    // renderTheResult();
+    
+    renderResult();
+    groupImageSection.removeEventListener('click', clickImage);
+    
 
-    groupImageSection.removeEventlistener('click', clickImage);
 
-
-
-    // console.log('finished');
+   
   }
 }
-//for(var i = 0; i< 25 ; i++){
 
 
 
 groupImageSection.addEventListener('click', clickImage);
-//when they reach total max clicks, remove the clicky function
 
 
+function renderResult(){
+  var ulReult =document.getElementById("totalResult")
+  for(var i=0 ;i<myImagesImages.length ;i++ ){
 
-// Instantiate my image objects
-//helper functions
+var reslutLi =document.createElement('li');
+ulReult.appendChild(reslutLi);
+reslutLi.textContent= ` The ${myImages[i].name} had ${myImages[i].clicks} clicks`;
+var resluthr =document.createElement('hr');
+ulReult.appendChild(resluthr);
+
+  }
+  
+  
+  }
+
+
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
