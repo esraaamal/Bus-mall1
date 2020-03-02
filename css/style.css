@@ -116,3 +116,6 @@ body {
     float: left;
     width: 50%;
   }
+  #allBusMall{
+    display: inline-block;
+  }
