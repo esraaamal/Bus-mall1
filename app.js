@@ -1,30 +1,9 @@
 'use strict';
 
-/*
-  Practice domain modeling by planning out an app w that allows users to choose their favorite between two myImages
-  Let students participate by suggesting the steps needed to make the app run
-  App Flow:
-  - Welcome and instructions
-  - Randomly put 2 myImages on the screen
-    - Random number generator
-    - a function to display myImages
-  - A user clicks on a Bus
-    - event listener needs to be on the image to fire the event handler
-    - the event handler firesx
-      - ? check if total clicks is 5 ?
-      - stop letting the user click
-    - if the user reach 5 tries remove image section for myImages and display to the user you fininshed.
-  HTML
-    - have a left and right image container in the html
-    - Give them id's so we can select them
-  We need an Array to hold all image Objects
-  function to randomly pick an image{
-  }
-  click on an image, targetted by id
-  add event listener('click', function(){
-  })
-*/
-var newArray=[];
+var leftImageRandom;
+var rightImageRandom;
+var centerImageRandom;
+var newArray = [];
 var myImagesImages = [
   'bag.jpg',
   'banana.jpg',
@@ -51,123 +30,129 @@ var myImagesImages = [
 var leftBusImg = document.querySelector('#myLeftPic');
 var rightBusImg = document.querySelector('#myRightPic');
 var centerBusImg = document.querySelector('#myCenterPic');
-
 var groupImageSection = document.getElementById('allBusMall');
 
 var myImages = [];//an array to store all myImages object
 var totalClicks = 1;
-// leftBusImg.src = `images/${myImagesImages[0]}.jpg`;
-// leftBusImg.alt = myImagesImages[0];
 
-//  rightBusImg.src = `images/${myImagesImages[1]}.jpg`;
-//  rightBusImg.alt = myImagesImages[1];
 
-//constructor function to generate dynamic myImages objects
-function Bus(name){
-  this.name = name;
-  this.urlImage = `images/${this.name}`;
+
+function Bus(urlImage) {
+  this.name = urlImage.split('.')[0];
+  this.urlImage = `images/${urlImage}`;
+  this.view = 0;
+  this.clicks = 0;
   myImages.push(this);//this its refer to the object that im created
+  console.log(myImages);
 }
 
-function pickRandomImages(){
-  var mynewImage=[];
-var indexRandom=randomNumber(0 , myImages.length-1 );
-  var leftImageRandom =  myImages[indexRandom];
- mynewImage= myImages.splice(indexRandom ,1);
-leftClicks++;
-newArray.push(leftImageRandom);
+function pickRandomImages() {
+  console.log(myImages);
+  leftImageRandom = myImages[randomNumber(0, myImages.length - 1)];
 
-//console.log(` we click ${leftClicks} in ${myImages[indexRandom]}`);
-//console.log(mynewImage.length);
+  rightImageRandom = myImages[randomNumber(0, myImages.length - 1)];
 
-  
+  centerImageRandom = myImages[randomNumber(0, myImages.length - 1)];
 
-  var indexRandom=randomNumber(0 , myImages.length-1 );
-  var rightImageRandom =  myImages[indexRandom];
- mynewImage= myImages.splice(indexRandom ,1);
-rightClicks++;
-newArray.push(rightImageRandom);
-
-//console.log(` we click ${rightClicks} in ${myImages[indexRandom]}`);
-console.log(mynewImage.length);
+  while (leftImageRandom === rightImageRandom || leftImageRandom === centerImageRandom || rightImageRandom === centerImageRandom) {
 
 
+    leftImageRandom = myImages[randomNumber(0, myImages.length - 1)];
 
+    rightImageRandom = myImages[randomNumber(0, myImages.length - 1)];
 
-
-
-
-  var centerImageRandom =  myImages[randomNumber(0 , myImages.length-1 )];
-
-  leftBusImg.setAttribute('src' , leftImageRandom.urlImage);
-  leftBusImg.setAttribute('alt' , leftImageRandom.name);
-  console.log(` we click ${leftClicks} in ${leftImageRandom.name}`);
-
-  rightBusImg.setAttribute('src' , rightImageRandom.urlImage);
-  rightBusImg.setAttribute('alt' ,rightImageRandom.name);
-
-  centerBusImg.setAttribute('src' , centerImageRandom.urlImage);
-  centerBusImg.setAttribute('alt' ,centerImageRandom.name);
-  
-  while(leftBusImg ===  rightBusImg ){
-    pickRandomImages();
+    centerImageRandom = myImages[randomNumber(0, myImages.length - 1)]
   }
+
+
+
+  leftBusImg.setAttribute('src', leftImageRandom.urlImage);
+  leftBusImg.setAttribute('alt', leftImageRandom.name);
+  rightBusImg.setAttribute('src', rightImageRandom.urlImage);
+  rightBusImg.setAttribute('alt', rightImageRandom.name);
+
+  centerBusImg.setAttribute('src', centerImageRandom.urlImage);
+  centerBusImg.setAttribute('alt', centerImageRandom.name);
+
+
 }
 
-for(var i = 0; i< myImagesImages.length ; i++){
+for (var i = 0; i < myImagesImages.length; i++) {
+  console.log(myImagesImages[i]);
+  new Bus(myImagesImages[i]);
 
-  new Bus(myImagesImages[i]);//we pass the name of the myImages from the array
 }
 pickRandomImages();
-//console.log(myImages);
 
-// Variables to store the myImages already on the page
-// the allImages array is a property of the BusPicture constructor
-var leftClicks =0;
-var rightClicks =0;
-var centerClicks =0;
 
-function clickImage(e){
-  if( e.target.id === 'myLeftPic' ){
-      pickRandomImages();
-    
-    
+// Variables to store the goats already on the page
+// the allImages array is a property of the GoatPicture constructor
+
+function clickImage(e) {
+  if (e.target.id === 'myLeftPic' || e.target.id === 'myRightPic' || e.target.id === 'myCenterPic') {
+    pickRandomImages();
+
+
+
     totalClicks++;
-    
-  }else if( e.target.id === 'myRightPic'){
-      pickRandomImages();
-    
-    rightClicks++;
-    totalClicks++;
-  }else if(e.target.id === 'myCenterPic'){
-      pickRandomImages();
-      centerClicks++;
-      totalClicks++;
+
   }
-  else if(totalClicks === 25){
-      //remove event listener
-      leftBusImg.remove();
-       rightBusImg.remove();
-       
-      
-  
-     // console.log('finished');
-    }
+  if (e.target.id === 'myLeftPic') {
+
+    leftImageRandom.clicks++
+
+
+
+  } if (e.target.id === 'myRightPic') {
+
+
+    rightImageRandom.clicks++;
+
+
+
+  } if (e.target.id === 'myCenterPic') {
+
+
+    centerImageRandom.clicks++;
+
+
   }
-//for(var i = 0; i< 25 ; i++){
-  pickRandomImages();
-  
+  if (totalClicks === 25) {
+    //remove event listener
+    leftBusImg.remove();
+    rightBusImg.remove();
+    centerBusImg.remove();
 
-groupImageSection.addEventListener('click' , clickImage);
+    renderResult();
+    groupImageSection.removeEventListener('click', clickImage);
 
 
-//when they reach total max clicks, remove the clicky function
+
+
+  }
+}
 
 
 
-// Instantiate my image objects
-//helper functions
+groupImageSection.addEventListener('click', clickImage);
+
+
+function renderResult() {
+  var ulReult = document.getElementById("totalResult")
+  for (var i = 0; i < myImagesImages.length; i++) {
+
+    var reslutLi = document.createElement('li');
+    ulReult.appendChild(reslutLi);
+    reslutLi.textContent = ` The ${myImages[i].name} had ${myImages[i].clicks} clicks`;
+    var resluthr = document.createElement('hr');
+    ulReult.appendChild(resluthr);
+
+  }
+
+
+}
+
+
 function randomNumber(min, max) {
- 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }

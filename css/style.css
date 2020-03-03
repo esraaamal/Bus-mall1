@@ -1,46 +1,82 @@
-
+@import url('https://fonts.googleapis.com/css?family=Caveat:400,700&display=swap');
 body {
-    background: radial-gradient(#dbffe1, #fff) fixed;
-    color: #0e2805;
-    
-    
-    background-color: #cccccc;
-    height: 500px;
-        background-position: center center;
-        
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    overflow: scroll;
-    
-  }
- #allBusMall{
-   height: 500px;
-   width: 600px;
-   position: absolute;
-   background-color: #0e2805;
-   border-radius: 40px;
-   box-shadow:green;
-   
-   
- }
- 
-#allBusMall img{
+
+  background: radial-gradient(#dbffe1, #fff) fixed;
+  color: #0e2805;
   
-height: 100px;
-padding: 10px;
-display: inline-block;
+  
+  background-color: #cccccc;
+  height: 500px;
+      background-position: center center;
+      
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: scroll;
+  
 }
+#myLeftPic{
+
+margin-top: 14px;
+border-radius: 990px;
+
+
   
+}
+#myCenterPic{
+  border-radius: 990px ;
+}
+
+
+#myRightPic{
+  border-radius: 990px;
+
+}
+#allBusMall{
+ height:750px;
+ width: 800px;
+ position: absolute;
+ background-color: #0e2805;
+ border-radius: 40px;
+ box-shadow:green;
+ 
+ 
+}
+
+#allBusMall img{
+
+height: 200PX;
+width: 200PX;
+padding: 30px;
+display: inline-block;
+float: left;
+
+}
+
 
 .sign-in {
-    width: 600px;
-    height: 100px;
-  
-    box-shadow: 0 0 3px 0 rgb(0, 0, 0, 3);
-    background: #fff;
-    padding:20px;
-    margin: 9% auto 0;
-    text-align: center;
-    border-radius: 20px 80px 0 80px;
+  width: 800px;
+  height: 100px;
+
+  box-shadow: 0 0 3px 0 rgb(0, 0, 0, 3);
+  background: #fff;
+  padding:20px;
+  margin: 9% auto 0;
+  text-align: center;
+  border-radius: 20px 80px 0 80px;
+}
+
+#totalResult{
+background-color: greenyellow;
+margin-top: 80px;
+
+opacity: .7;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+h1{
+  font-family: 'Caveat' ;
+  font-size: 100px;
+  text-align: center;
+  margin-top: 100px;
 }
