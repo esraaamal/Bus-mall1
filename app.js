@@ -1,7 +1,7 @@
 var leftImageRandom;
 var rightImageRandom;
 var centerImageRandom;
-var newArray = [];
+var newArr = [];
 var myImagesImages = [
   'bag.jpg',
   'banana.jpg',
@@ -36,51 +36,68 @@ var totalClicks = 1;
 
 
 function Bus(name) {
-  this.name =name.split('.')[0];
+  this.name = name.split('.')[0];
   this.urlImage = `images/${name}`;
   this.view = 0;
   this.clicks = 0;
-  
+
   myImages.push(this);//this its refer to the object that im created
   //console.log(myImages);
 }
 
+
+
+
+
+
 function pickRandomImages() {
- // console.log(myImages);
- var myRandomIdex1=randomNumber(0, myImages.length - 1);
- leftImageRandom=myImages[myRandomIdex1];
- myImages.splice(myRandomIdex1 ,1);
- 
 
- var myRandomIdex2=randomNumber(0, myImages.length - 1);
- rightImageRandom=myImages[myRandomIdex2];
- myImages.splice(myRandomIdex2 ,1);
+  var myRandomIdex1 = randomNumber(0, myImages.length - 1);
+  leftImageRandom = myImages[myRandomIdex1];
+  myImages.splice(myRandomIdex1, 1);
 
- var myRandomIdex3 =randomNumber(0, myImages.length - 1);
- centerImageRandom =myImages[myRandomIdex3];
- myImages.splice(myRandomIdex3 ,1);
 
+  var myRandomIdex2 = randomNumber(0, myImages.length - 1);
+  rightImageRandom = myImages[myRandomIdex2];
+  myImages.splice(myRandomIdex2, 1);
+
+  var myRandomIdex3 = randomNumber(0, myImages.length - 1);
+  centerImageRandom = myImages[myRandomIdex3];
+  myImages.splice(myRandomIdex3, 1);
+
+
+
+  /*if(myImages.length == 0){
+    myImages =newArr.concat(newArray);
+   
+    var myRandomIdex1=randomNumber(0, myImages.length - 1);
+   leftImageRandom=myImages[myRandomIdex1];
+   myImages.splice(myRandomIdex1 ,1);
+   
   
-  while (leftImageRandom === rightImageRandom || leftImageRandom === centerImageRandom || rightImageRandom === centerImageRandom) {
+   var myRandomIdex2=randomNumber(0,myImages.length - 1);
+   rightImageRandom=myImages[myRandomIdex2];
+   myImages.splice(myRandomIdex2 ,1);
+  
+   var myRandomIdex3 =randomNumber(0,myImages.length - 1);
+   centerImageRandom =myImages[myRandomIdex3];
+   myImages.splice(myRandomIdex3 ,1);
+  };*/
 
-
-    leftImageRandom = myImages[randomNumber(0, myImages.length - 1)];
-
-    rightImageRandom = myImages[randomNumber(0, myImages.length - 1)];
-
-    centerImageRandom = myImages[randomNumber(0, myImages.length - 1)]
-  }
 
 
 
   leftBusImg.setAttribute('src', leftImageRandom.urlImage);
   leftBusImg.setAttribute('alt', leftImageRandom.name);
+
   rightBusImg.setAttribute('src', rightImageRandom.urlImage);
   rightBusImg.setAttribute('alt', rightImageRandom.name);
 
   centerBusImg.setAttribute('src', centerImageRandom.urlImage);
   centerBusImg.setAttribute('alt', centerImageRandom.name);
-
+  myImages.push(leftImageRandom);
+  myImages.push(rightImageRandom);
+  myImages.push(centerImageRandom);
 
 }
 
@@ -89,6 +106,11 @@ for (var i = 0; i < myImagesImages.length; i++) {
   new Bus(myImagesImages[i]);
 
 }
+
+// var newArray =newArr.concat(myImages);
+// console.log(newArray);
+
+
 pickRandomImages();
 
 
@@ -99,8 +121,11 @@ function clickImage(e) {
   if (e.target.id === 'myLeftPic' || e.target.id === 'myRightPic' || e.target.id === 'myCenterPic') {
     pickRandomImages();
 
+    leftImageRandom.view++;
+    rightImageRandom.view++;
 
 
+    centerImageRandom.view++;
     totalClicks++;
 
   }
@@ -108,7 +133,7 @@ function clickImage(e) {
 
     leftImageRandom.clicks++;
 
-console.log('click' ,leftImageRandom.clicks);
+    console.log('click', leftImageRandom.clicks);
 
   } if (e.target.id === 'myRightPic') {
 
@@ -134,7 +159,7 @@ console.log('click' ,leftImageRandom.clicks);
     renderChartresult();
 
     //renderResult();
-    
+
 
 
 
@@ -146,20 +171,20 @@ console.log('click' ,leftImageRandom.clicks);
 groupImageSection.addEventListener('click', clickImage);
 
 
-/*function renderResult() {
-  var ulReult = document.getElementById("totalResult")
-  for (var i = 0; i < myImagesImages.length; i++) {
+// function renderResult() {
+//   var ulReult = document.getElementById("totalResult")
+//   for (var i = 0; i < myImagesImages.length; i++) {
 
-    var reslutLi = document.createElement('li');
-    ulReult.appendChild(reslutLi);
-    reslutLi.textContent = ` The ${myImages[i].name} had ${myImages[i].clicks} clicks`;
-    var resluthr = document.createElement('hr');
-    ulReult.appendChild(resluthr);
+//     var reslutLi = document.createElement('li');
+//     ulReult.appendChild(reslutLi);
+//     reslutLi.textContent = ` The ${myImages[i].name} had ${myImages[i].clicks} clicks ,and view for ${myImages[i].view}`;
+//     var resluthr = document.createElement('hr');
+//     ulReult.appendChild(resluthr);
 
-  }
+//   }
 
 
-}*/
+// }
 
 
 function randomNumber(min, max) {
@@ -169,47 +194,64 @@ function randomNumber(min, max) {
 function renderChartresult() {
   var busMallName = [];//pass this array to x-axis
   var busClick = [];//we will pass this array in the y-axis
-  for (var i = 0; i < myImagesImages.length; i++) {
-    var busName = myImages[i].name;
-    busMallName.push(busName)
-var myClicK = myImages[i].view;
-console.log(myImages[i].view);
-busClick.push(myClicK);
+  var myViews =[];
+  for (var i = 0; i < myImages.length; i++) {
+
+    busMallName.push(myImages[i].name);
+    busClick.push(myImages[i].clicks);
+    myViews.push(myImages[i].view);
+
+
   }
-}
-console.log(busName);
-// start :now we paste the code of the chartjs
 
 
 var ctx = document.getElementById('myBusMallC').getContext('2d');
 var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: busMallName,
-        datasets: [{
-            label: '# of Votes',
-            data: busClick,
-            backgroundColor: 
-                'rgba(255, 99, 132, 0.2)',
-                
-            borderColor: 
-                'rgba(255, 99, 132, 1)',
-                
-            
-            borderWidth: 1
-        }]
+  type: 'bar',
+  data: {
+    labels: busMallName,
+    datasets: [{
+      label: '# of Votes',
+      data: busClick,
+      backgroundColor:
+        'rgba(255, 99, 132, 0.2)',
+
+      borderColor:
+        'rgba(255, 99, 132, 1)',
+
+
+      borderWidth: 1
     },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+    {label: '# of Views',
+    data: myViews,
+    backgroundColor:
+      'rgba(145, 87, 12, 0.6)',
+
+    borderColor:
+      'rgba(5, 49, 132, 1)',
+
+
+    borderWidth: 1
+  }
+  
+  
+  
+  
+  
+  
+  ]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
         }
+      }]
     }
+  }
 });
 ////now we  End paste the code of the chartjs
 ////////////////////////////////////////////
 ////////////////////////////////////////////
-
+}
