@@ -42,25 +42,10 @@ function Bus(name) {
   this.urlImage = `images/${name}`;
   this.view = 0;
   this.clicks = 0;
-
+  
   myImages.push(this);//this its refer to the object that im created
   //console.log(myImages);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function pickRandomImages() {
@@ -96,22 +81,7 @@ function pickRandomImages() {
    centerImageRandom =myImages[myRandomIdex3];
    myImages.splice(myRandomIdex3 ,1);
   };*/
-  var savedViews = [];
-  function setItem() {
-  
-      for (var i = 0; i <myImages.length; i++) {
-          savedViews[i] = savedViews[i] +myImages[i].view;
-         myImages[i].view = savedViews[i];
-      }
-      localStorage.setItem('esraa', JSON.stringify(myImages));
-  
-  }
 
-  function getItem() {
-    var myGetItem= localStorage.getItem('esraa');
-    myImages= JSON.parse(myGetItem);
-    renderOrders()
-}
 
 
   leftBusImg.setAttribute('src', leftImageRandom.urlImage);
@@ -131,7 +101,7 @@ function pickRandomImages() {
 for (var i = 0; i < myImagesImages.length; i++) {
   console.log(myImagesImages[i]);
   new Bus(myImagesImages[i]);
-  renderOrders();
+  //renderOrders();
 
 }
 
@@ -148,18 +118,19 @@ pickRandomImages();
 function clickImage(e) {
   if (e.target.id === 'myLeftPic' || e.target.id === 'myRightPic' || e.target.id === 'myCenterPic') {
     pickRandomImages();
-
+    
     leftImageRandom.view++;
     rightImageRandom.view++;
 
 
     centerImageRandom.view++;
     totalClicks++;
-
+    //setItem();
   }
   if (e.target.id === 'myLeftPic') {
 
     leftImageRandom.clicks++;
+    
 
     console.log('click', leftImageRandom.clicks);
 
@@ -168,13 +139,13 @@ function clickImage(e) {
 
     rightImageRandom.clicks++;
 
-
+    
 
   } if (e.target.id === 'myCenterPic') {
 
 
     centerImageRandom.clicks++;
-
+    
 
   }
   if (totalClicks === 25) {
@@ -186,7 +157,7 @@ function clickImage(e) {
     centerBusImg.remove();
     renderChartresult();
     setItem();
-
+  
     //renderResult();
 
 
@@ -228,6 +199,7 @@ function renderChartresult() {
 
     busMallName.push(myImages[i].name);
     busClick.push(myImages[i].clicks);
+    console.log(busClick);
     myViews.push(myImages[i].view);
 
 
@@ -277,21 +249,44 @@ var myChart = new Chart(ctx, {
 ////////////////////////////////////////////
 ////////////////////////////////////////////
 }
+
+
 function renderOrders(){
   // clear all my current uls to prevent duplicate information
   orders.textContent = "";
 
   // go through the array and output the details of each drink in the array
-  for(var i=0; i < myImages.length; i++){
-    var drinkLI = document.createElement('li');
+  for(var i=0; i < myImagesImages.length; i++){
+    var liEl = document.createElement('li');
+    orders.appendChild(liEl);
     var infoP = document.createElement('p');
-    var temp;
     
-    infoP.textContent = `${myImages[i].name} orderd a ${temp} ${myImages[i].clicks} ${myImages[i].view} `;
-    drinkLI.appendChild(infoP);
-    orders.appendChild(drinkLI);
+    infoP.textContent = `${myImages[i].name} orderd has a ${myImages[i].clicks} clickes and ${myImages[i].view}views  `;
+    liEl.appendChild(infoP);
+    console.log(`${myImages[i].name} orderd has a ${myImages[i].clicks} clickes and ${myImages[i].view}views  `)
   }
 }
 
-groupImageSection.addEventListener('busOrder', clickImage)
+groupImageSection.addEventListener('busOrder', clickImage);
+//var savedViews = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+function setItem() {
+
+    /*for (var i = 0; i <myImages.length; i++) {
+        savedViews[i] = savedViews[i] +myImages[i].view;
+       myImages[i].view = savedViews[i];
+    }*/
+    localStorage.setItem('esraa', JSON.stringify(myImages));
+
+}
+
+function getItem() {
+  var myGetItem= JSON.parse(localStorage.getItem('esraa'));
+  if (myGetItem){}
+
+  myImages = myGetItem;
+  renderOrders();
+}
+ 
+  
+
 getItem();
