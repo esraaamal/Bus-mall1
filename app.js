@@ -36,7 +36,6 @@ var myImages = [];
 var totalClicks = 1;
 
 
-
 function Bus(name) {
   this.name = name.split('.')[0];
   this.urlImage = `images/${name}`;
@@ -47,13 +46,11 @@ function Bus(name) {
   //console.log(myImages);
 }
 
-
 function pickRandomImages() {
 
   var myRandomIdex1 = randomNumber(0, myImages.length - 1);
   leftImageRandom = myImages[myRandomIdex1];
   myImages.splice(myRandomIdex1, 1);
-
 
   var myRandomIdex2 = randomNumber(0, myImages.length - 1);
   rightImageRandom = myImages[myRandomIdex2];
@@ -62,7 +59,6 @@ function pickRandomImages() {
   var myRandomIdex3 = randomNumber(0, myImages.length - 1);
   centerImageRandom = myImages[myRandomIdex3];
   myImages.splice(myRandomIdex3, 1);
-
 
 
   /*if(myImages.length == 0){
@@ -81,7 +77,6 @@ function pickRandomImages() {
    centerImageRandom =myImages[myRandomIdex3];
    myImages.splice(myRandomIdex3 ,1);
   };*/
-
 
 
   leftBusImg.setAttribute('src', leftImageRandom.urlImage);
@@ -108,9 +103,7 @@ for (var i = 0; i < myImagesImages.length; i++) {
 // var newArray =newArr.concat(myImages);
 // console.log(newArray);
 
-
 pickRandomImages();
-
 
 // Variables to store the goats already on the page
 // the allImages array is a property of the GoatPicture constructor
@@ -122,10 +115,9 @@ function clickImage(e) {
     leftImageRandom.view++;
     rightImageRandom.view++;
 
-
     centerImageRandom.view++;
     totalClicks++;
-    //setItem();
+    
   }
   if (e.target.id === 'myLeftPic') {
 
@@ -136,13 +128,11 @@ function clickImage(e) {
 
   } if (e.target.id === 'myRightPic') {
 
-
     rightImageRandom.clicks++;
 
     
 
   } if (e.target.id === 'myCenterPic') {
-
 
     centerImageRandom.clicks++;
     
@@ -156,10 +146,9 @@ function clickImage(e) {
     rightBusImg.remove();
     centerBusImg.remove();
     renderChartresult();
-    setItem();
+    setItem22();
   
     //renderResult();
-
 
 
 
@@ -167,9 +156,7 @@ function clickImage(e) {
 }
 
 
-
 groupImageSection.addEventListener('click', clickImage);
-
 
 // function renderResult() {
 //   var ulReult = document.getElementById("totalResult")
@@ -183,9 +170,7 @@ groupImageSection.addEventListener('click', clickImage);
 
 //   }
 
-
 // }
-
 
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -202,9 +187,7 @@ function renderChartresult() {
     console.log(busClick);
     myViews.push(myImages[i].view);
 
-
   }
-
 
 var ctx = document.getElementById('myBusMallC').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -220,7 +203,6 @@ var myChart = new Chart(ctx, {
       borderColor:
         'rgba(255, 99, 132,1)',
 
-
       borderWidth: 1
     },
     {label: '# of Views',
@@ -230,7 +212,6 @@ var myChart = new Chart(ctx, {
 
     borderColor:
       'rgba(50, 8, 12, 1)',
-
 
     borderWidth: 1
   }]
@@ -250,7 +231,6 @@ var myChart = new Chart(ctx, {
 ////////////////////////////////////////////
 }
 
-
 function renderOrders(){
   // clear all my current uls to prevent duplicate information
   orders.textContent = "";
@@ -268,25 +248,31 @@ function renderOrders(){
 }
 
 groupImageSection.addEventListener('busOrder', clickImage);
-//var savedViews = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-function setItem() {
 
-    /*for (var i = 0; i <myImages.length; i++) {
-        savedViews[i] = savedViews[i] +myImages[i].view;
-       myImages[i].view = savedViews[i];
-    }*/
-    localStorage.setItem('esraa', JSON.stringify(myImages));
 
+
+function setItem22() {
+
+  var productObject = JSON.stringify(myImages);
+  localStorage.setItem('esraa',productObject);
 }
 
-function getItem() {
-  var myGetItem= JSON.parse(localStorage.getItem('esraa'));
-  if (myGetItem){}
 
-  myImages = myGetItem;
-  renderOrders();
+
+
+function get22(){
+  var esraa = localStorage.getItem('esraa');
+  
+  if(esraa !== null) {
+   
+    myImages = JSON.parse(esraa);
+    
+    renderOrders();
+  }
 }
  
-  
+get22();
 
-getItem();
+
+
+
